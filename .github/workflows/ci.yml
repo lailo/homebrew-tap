@@ -14,16 +14,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: Homebrew/actions/setup-homebrew@master
+      - uses: Homebrew/actions/setup-homebrew@main
+
+      - name: Tap this repo
+        run: |
+          TAP="$(brew --repository)/Library/Taps/lailo/homebrew-tap"
+          mkdir -p "$(dirname "$TAP")"
+          [ -e "$TAP" ] || ln -s "$GITHUB_WORKSPACE" "$TAP"
 
       - name: Style
         run: brew style .
 
       - name: Audit cask
-        run: brew audit --strict --tap "$GITHUB_WORKSPACE" lailo/tap/bowzer
+        run: brew audit --strict lailo/tap/bowzer
 
       - name: Audit formula
-        run: brew audit --strict --tap "$GITHUB_WORKSPACE" lailo/tap/bergauf
+        run: brew audit --strict lailo/tap/bergauf
 
       - name: Smoke install bergauf
         run: |
