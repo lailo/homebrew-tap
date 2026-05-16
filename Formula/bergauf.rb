@@ -1,13 +1,13 @@
 class Bergauf < Formula
   desc "MCP server for planning hikes in Switzerland"
   homepage "https://github.com/lailo/bergauf"
-  version "0.1.0"
+  version "1.0.0"
   license "MIT"
 
   on_macos do
     on_arm do
-      url "https://github.com/lailo/bergauf/releases/download/v#{version}/bergauf-darwin-arm64"
-      sha256 "5cf4bbed0270a8d9d7feb313eeb1d3b4e29bf00d4ea17090e23f6d9e077112ab"
+      url "https://github.com/lailo/bergauf/releases/download/v1.0.0/bergauf-darwin-arm64.tar.gz"
+      sha256 "41fafe45d5d08ba04949e02374cd8cb4e1318174d7423cc9fd3a1779c4756ebf"
     end
     on_intel do
       url "https://github.com/lailo/bergauf/releases/download/v#{version}/bergauf-darwin-x64"
