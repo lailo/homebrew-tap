@@ -10,7 +10,8 @@ class Lly < Formula
   depends_on :macos
 
   def install
-    bin.install "lly"
+    libexec.install Dir["*"]
+    bin.write_exec_script libexec/"lly"
   end
 
   test do
