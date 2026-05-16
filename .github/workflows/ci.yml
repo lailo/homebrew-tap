@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: Homebrew/actions/setup-homebrew@master
+
+      - name: Style
+        run: brew style .
+
+      - name: Audit cask
+        run: brew audit --strict --tap "$GITHUB_WORKSPACE" lailo/tap/bowzer
+
+      - name: Audit formula
+        run: brew audit --strict --tap "$GITHUB_WORKSPACE" lailo/tap/bergauf
+
+      - name: Smoke install bergauf
+        run: |
+          brew install lailo/tap/bergauf
+          brew test bergauf
+          brew uninstall bergauf
+
+      - name: Smoke fetch bowzer
+        run: brew fetch --cask lailo/tap/bowzer
