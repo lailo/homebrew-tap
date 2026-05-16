@@ -7,7 +7,7 @@ cask "bowzer" do
   desc "Lightweight browser picker that lets you choose where to open links"
   homepage "https://github.com/lailo/bowzer"
 
-  depends_on macos: ">= :sonoma"
+  depends_on macos: :sonoma
 
   app "Bowzer.app"
 
