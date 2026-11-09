@@ -28,14 +28,20 @@ jobs:
       - name: Audit cask
         run: brew audit --strict lailo/tap/bowzer
 
-      - name: Audit formula
-        run: brew audit --strict lailo/tap/bergauf
+      - name: Audit formulae
+        run: brew audit --strict lailo/tap/bergauf lailo/tap/lly
 
       - name: Smoke install bergauf
         run: |
           brew install lailo/tap/bergauf
           brew test bergauf
           brew uninstall bergauf
+
+      - name: Smoke install lly
+        run: |
+          brew install lailo/tap/lly
+          brew test lly
+          brew uninstall lly
 
       - name: Smoke fetch bowzer
         run: brew fetch --cask lailo/tap/bowzer
