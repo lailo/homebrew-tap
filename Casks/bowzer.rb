@@ -14,10 +14,12 @@ cask "bowzer" do
   # Bowzer releases are not codesigned or notarized, so macOS Gatekeeper
   # quarantines the app on first launch. Strip the quarantine attribute
   # after install so users don't see a "damaged / can't be opened" dialog.
-  postflight do
-    system_command "/usr/bin/xattr",
-                   args: ["-dr", "com.apple.quarantine", "#{appdir}/Bowzer.app"],
-                   sudo: false
+  # Install steps run sandboxed, so the app must be declared writable or
+  # removing the attribute is denied.
+  postflight_steps do
+    run "/usr/bin/xattr",
+        args:           ["-dr", "com.apple.quarantine", "{{appdir}}/Bowzer.app"],
+        writable_paths: ["{{appdir}}/Bowzer.app"]
   end
 
   zap trash: [
